@@ -1,0 +1,22 @@
+{
+	"node": "n8n-nodes-base.bling",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Finance & Accounting"],
+	"resources": {
+		"primaryDocumentation": [
+			{
+				"url": "https://developer.bling.com.br/referencia"
+			}
+		],
+		"credentialDocumentation": [
+			{
+				"url": "https://developer.bling.com.br/aplicativos"
+			}
+		]
+	},
+	"alias": ["bling", "erp", "nfe", "nfce", "nfse", "brasil", "fiscal", "contato", "produto", "pedido", "estoque"],
+	"subcategories": {
+		"Finance & Accounting": ["Invoicing"]
+	}
+}

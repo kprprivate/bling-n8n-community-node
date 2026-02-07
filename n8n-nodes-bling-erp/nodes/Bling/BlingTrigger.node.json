@@ -1,0 +1,17 @@
+{
+	"node": "n8n-nodes-base.blingTrigger",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Finance & Accounting"],
+	"resources": {
+		"primaryDocumentation": [
+			{
+				"url": "https://developer.bling.com.br/referencia"
+			}
+		]
+	},
+	"alias": ["bling", "erp", "trigger", "polling"],
+	"subcategories": {
+		"Finance & Accounting": ["Invoicing"]
+	}
+}

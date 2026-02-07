@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Package artifacts
+*.tgz
+
+# IDE / Tools
+.claude/
+.playwright-mcp/
+
+# OS
+.DS_Store
+Thumbs.db
+nul
+
+# Reference files
+openapi/
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.*

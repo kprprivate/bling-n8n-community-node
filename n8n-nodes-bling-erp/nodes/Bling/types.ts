@@ -1,0 +1,46 @@
+import type { IDataObject } from 'n8n-workflow';
+
+export interface IBlingResponse {
+	data: IDataObject | IDataObject[];
+}
+
+export type BlingResource =
+	| 'contato'
+	| 'produto'
+	| 'produtoVariacao'
+	| 'produtoFornecedor'
+	| 'produtoEstrutura'
+	| 'produtoLoja'
+	| 'produtoLote'
+	| 'pedidoVenda'
+	| 'pedidoCompra'
+	| 'nfe'
+	| 'nfce'
+	| 'nfse'
+	| 'contaReceber'
+	| 'contaPagar'
+	| 'estoque'
+	| 'deposito'
+	| 'categoriaProduto'
+	| 'categoriaReceitaDespesa'
+	| 'categoriaLoja'
+	| 'formaPagamento'
+	| 'vendedor'
+	| 'logistica'
+	| 'logisticaServico'
+	| 'logisticaObjeto'
+	| 'situacao'
+	| 'campoCustomizado'
+	| 'canalVenda'
+	| 'naturezaOperacao'
+	| 'empresa'
+	| 'notificacao'
+	| 'grupoProduto'
+	| 'contaContabil'
+	| 'homologacao'
+	| 'caixaBanco'
+	| 'anuncio'
+	| 'bordero'
+	| 'contrato'
+	| 'propostaComercial'
+	| 'ordemProducao';
