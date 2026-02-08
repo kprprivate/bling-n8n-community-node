@@ -240,7 +240,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('contatoId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/contatos/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/contatos/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/contatos/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('contatoId', i) as number;
@@ -288,7 +290,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('produtoId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/produtos/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/produtos/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/produtos/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('produtoId', i) as number;
@@ -344,7 +348,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('produtoFornecedorId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/produtos/fornecedores/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/produtos/fornecedores/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/produtos/fornecedores/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('produtoFornecedorId', i) as number;
@@ -365,7 +371,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('produtoEstruturaId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/produtos/estruturas/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/produtos/estruturas/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/produtos/estruturas/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'createComponent') {
 						const id = this.getNodeParameter('produtoEstruturaId', i) as number;
@@ -407,7 +415,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('produtoLojaId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/produtos/lojas/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/produtos/lojas/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/produtos/lojas/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('produtoLojaId', i) as number;
@@ -473,7 +483,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('pedidoVendaId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/pedidos/vendas/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/pedidos/vendas/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/pedidos/vendas/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('pedidoVendaId', i) as number;
@@ -531,7 +543,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('pedidoCompraId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/pedidos/compras/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/pedidos/compras/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/pedidos/compras/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('pedidoCompraId', i) as number;
@@ -581,7 +595,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('nfeId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/nfe/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/nfe/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/nfe/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('nfeId', i) as number;
@@ -635,7 +651,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('nfceId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/nfce/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/nfce/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/nfce/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('nfceId', i) as number;
@@ -689,7 +707,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('nfseId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/nfse/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/nfse/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/nfse/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('nfseId', i) as number;
@@ -734,7 +754,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('contaReceberId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/contas/receber/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/contas/receber/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/contas/receber/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('contaReceberId', i) as number;
@@ -773,7 +795,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('contaPagarId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/contas/pagar/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/contas/pagar/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/contas/pagar/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('contaPagarId', i) as number;
@@ -830,7 +854,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('depositoId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/depositos/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/depositos/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/depositos/${id}`, body);
 						responseData = response.data as IDataObject;
 					}
 
@@ -860,7 +886,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('categoriaId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/categorias/produtos/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/categorias/produtos/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/categorias/produtos/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('categoriaId', i) as number;
@@ -894,7 +922,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('categoriaId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/categorias/receitas-despesas/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/categorias/receitas-despesas/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/categorias/receitas-despesas/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('categoriaId', i) as number;
@@ -924,7 +954,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('categoriaId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/categorias/lojas/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/categorias/lojas/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/categorias/lojas/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('categoriaId', i) as number;
@@ -958,7 +990,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('formaPagamentoId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/formas-pagamentos/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/formas-pagamentos/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/formas-pagamentos/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('formaPagamentoId', i) as number;
@@ -997,7 +1031,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('vendedorId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/vendedores/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/vendedores/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/vendedores/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('vendedorId', i) as number;
@@ -1027,7 +1063,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('logisticaId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/logisticas/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/logisticas/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/logisticas/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('logisticaId', i) as number;
@@ -1057,7 +1095,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('servicoId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/logisticas/servicos/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/logisticas/servicos/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/logisticas/servicos/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('servicoId', i) as number;
@@ -1139,7 +1179,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('situacaoId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/situacoes/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/situacoes/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/situacoes/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('situacaoId', i) as number;
@@ -1169,7 +1211,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('campoId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/campos-customizados/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/campos-customizados/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/campos-customizados/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('campoId', i) as number;
@@ -1336,7 +1380,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('caixaBancoId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/caixas/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/caixas/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/caixas/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('caixaBancoId', i) as number;
@@ -1370,7 +1416,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('anuncioId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/anuncios/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/anuncios/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/anuncios/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('anuncioId', i) as number;
@@ -1429,7 +1477,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('contratoId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/contratos/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/contratos/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/contratos/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('contratoId', i) as number;
@@ -1463,7 +1513,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('propostaId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/propostas-comerciais/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/propostas-comerciais/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/propostas-comerciais/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('propostaId', i) as number;
@@ -1502,7 +1554,9 @@ export class Bling implements INodeType {
 					} else if (operation === 'update') {
 						const id = this.getNodeParameter('ordemId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
-						const response = await blingApiRequest.call(this, 'PUT', `/ordens-producao/${id}`, updateFields);
+						const current = await blingApiRequest.call(this, 'GET', `/ordens-producao/${id}`);
+						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const response = await blingApiRequest.call(this, 'PUT', `/ordens-producao/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
 						const id = this.getNodeParameter('ordemId', i) as number;
