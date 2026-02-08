@@ -267,6 +267,13 @@ export const vendedorFields: INodeProperties[] = [
 						displayName: 'Comissão',
 						values: [
 							{
+								displayName: 'Indice da Comissao',
+								name: 'indice',
+								type: 'number',
+								default: 0,
+								description: 'Indice (posicao) da comissao a ser atualizada (comeca em 0)',
+							},
+							{
 								displayName: 'Desconto Máximo (%)',
 								name: 'descontoMaximo',
 								type: 'number',

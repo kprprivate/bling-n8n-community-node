@@ -609,6 +609,13 @@ export const nfeFields: INodeProperties[] = [
 						name: 'itemData',
 						values: [
 							{
+								displayName: 'Indice do Item',
+								name: 'indice',
+								type: 'number',
+								default: 0,
+								description: 'Indice (posicao) do item a ser atualizado (comeca em 0)',
+							},
+							{
 								displayName: 'ID do Produto',
 								name: 'produto',
 								type: 'number',
@@ -674,6 +681,13 @@ export const nfeFields: INodeProperties[] = [
 						displayName: 'Parcela',
 						name: 'parcelaData',
 						values: [
+							{
+								displayName: 'Indice da Parcela',
+								name: 'indice',
+								type: 'number',
+								default: 0,
+								description: 'Indice (posicao) da parcela a ser atualizada (comeca em 0)',
+							},
 							{
 								displayName: 'Data de Vencimento',
 								name: 'dataVencimento',

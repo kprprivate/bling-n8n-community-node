@@ -48,6 +48,59 @@ import { contratoOperations, contratoFields } from './resources/contrato/contrat
 import { propostaComercialOperations, propostaComercialFields } from './resources/propostaComercial/propostaComercial.operations';
 import { ordemProducaoOperations, ordemProducaoFields } from './resources/ordemProducao/ordemProducao.operations';
 
+function transformPedidoVendaBody(body: IDataObject): void {
+	// Unwrap itens: { itemData: [...] } → [...]
+	if (body.itens && typeof body.itens === 'object' && !Array.isArray(body.itens)) {
+		body.itens = (body.itens as IDataObject).itemData || [];
+	}
+	// Transform produto: number → { id: number } in each item
+	if (Array.isArray(body.itens)) {
+		for (const item of body.itens as IDataObject[]) {
+			if (typeof item.produto === 'number') {
+				item.produto = { id: item.produto };
+			}
+		}
+	}
+
+	// Unwrap parcelas: { parcelaData: [...] } → [...]
+	if (body.parcelas && typeof body.parcelas === 'object' && !Array.isArray(body.parcelas)) {
+		body.parcelas = (body.parcelas as IDataObject).parcelaData || [];
+	}
+	// Transform formaPagamento: number → { id: number } in each parcela
+	if (Array.isArray(body.parcelas)) {
+		for (const p of body.parcelas as IDataObject[]) {
+			if (typeof p.formaPagamento === 'number') {
+				p.formaPagamento = { id: p.formaPagamento };
+			}
+		}
+	}
+
+	// Unwrap contato: { contatoData: {...} } → {...}
+	if (body.contato && typeof body.contato === 'object' && (body.contato as IDataObject).contatoData) {
+		body.contato = (body.contato as IDataObject).contatoData;
+	}
+
+	// Unwrap transporte: { transporteData: {...} } → {...}
+	if (body.transporte && typeof body.transporte === 'object' && (body.transporte as IDataObject).transporteData) {
+		body.transporte = (body.transporte as IDataObject).transporteData;
+	}
+}
+
+function mergeArrayByIndex(
+	currentArray: IDataObject[],
+	updates: IDataObject[],
+): IDataObject[] {
+	const result = currentArray.map((item) => ({ ...item }));
+	for (const update of updates) {
+		const idx = update.indice as number;
+		delete update.indice;
+		if (idx < result.length) {
+			result[idx] = { ...result[idx], ...update };
+		}
+	}
+	return result;
+}
+
 export class Bling implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Bling ERP',
@@ -464,6 +517,7 @@ export class Bling implements INodeType {
 						const body: IDataObject = {};
 						const fields = this.getNodeParameter('orderData', i) as IDataObject;
 						Object.assign(body, fields);
+						transformPedidoVendaBody(body);
 						const response = await blingApiRequest.call(this, 'POST', '/pedidos/vendas', body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'get') {
@@ -495,8 +549,29 @@ export class Bling implements INodeType {
 						delete currentData.tributacao;
 						delete currentData.taxas;
 						delete currentData.notaFiscal;
-						delete currentData.parcelas;
+
+						// Extract array fields before merge to handle them separately
+						const userItens = updateFields.itens;
+						const userParcelas = updateFields.parcelas;
+						delete updateFields.itens;
+						delete updateFields.parcelas;
+
+						// Merge scalar fields
 						const body: IDataObject = { ...currentData, ...updateFields };
+
+						// Merge array fields by index
+						if (userItens) {
+							const unwrapped = (userItens as IDataObject).itemData as IDataObject[] || [];
+							body.itens = mergeArrayByIndex(currentData.itens as IDataObject[] || [], unwrapped);
+						}
+						if (userParcelas) {
+							const unwrapped = (userParcelas as IDataObject).parcelaData as IDataObject[] || [];
+							body.parcelas = mergeArrayByIndex(currentData.parcelas as IDataObject[] || [], unwrapped);
+						} else {
+							delete body.parcelas;
+						}
+
+						transformPedidoVendaBody(body);
 						const response = await blingApiRequest.call(this, 'PUT', `/pedidos/vendas/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
@@ -620,8 +695,29 @@ export class Bling implements INodeType {
 						delete currentData.totalProdutos;
 						delete currentData.total;
 						delete currentData.tributacao;
-						delete currentData.parcelas;
+
+						// Extract array fields before merge to handle them separately
+						const userItens = updateFields.itens;
+						const userParcelas = updateFields.parcelas;
+						delete updateFields.itens;
+						delete updateFields.parcelas;
+
+						// Merge scalar fields
 						const body: IDataObject = { ...currentData, ...updateFields };
+
+						// Merge array fields by index
+						if (userItens) {
+							const unwrapped = (userItens as IDataObject).itemData as IDataObject[] || [];
+							body.itens = mergeArrayByIndex(currentData.itens as IDataObject[] || [], unwrapped);
+						}
+						if (userParcelas) {
+							const unwrapped = (userParcelas as IDataObject).parcelaData as IDataObject[] || [];
+							body.parcelas = mergeArrayByIndex(currentData.parcelas as IDataObject[] || [], unwrapped);
+						} else {
+							delete body.parcelas;
+						}
+
+						transformPedidoVendaBody(body);
 						const response = await blingApiRequest.call(this, 'PUT', `/nfe/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
@@ -1081,7 +1177,21 @@ export class Bling implements INodeType {
 						const id = this.getNodeParameter('vendedorId', i) as number;
 						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
 						const current = await blingApiRequest.call(this, 'GET', `/vendedores/${id}`);
-						const body: IDataObject = { ...(current.data as IDataObject), ...updateFields };
+						const currentData = current.data as IDataObject;
+
+						// Extract array fields before merge to handle them separately
+						const userComissoes = updateFields.comissoes;
+						delete updateFields.comissoes;
+
+						// Merge scalar fields
+						const body: IDataObject = { ...currentData, ...updateFields };
+
+						// Merge comissoes by index
+						if (userComissoes) {
+							const unwrapped = (userComissoes as IDataObject).comissao as IDataObject[] || [];
+							body.comissoes = mergeArrayByIndex(currentData.comissoes as IDataObject[] || [], unwrapped);
+						}
+
 						const response = await blingApiRequest.call(this, 'PUT', `/vendedores/${id}`, body);
 						responseData = response.data as IDataObject;
 					} else if (operation === 'delete') {
