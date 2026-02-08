@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-bling-erp",
-	"version": "0.1.1",
+	"version": "0.1.3",
 	"description": "n8n community node for Bling ERP API v3",
 	"keywords": [
 		"n8n-community-node-package",
