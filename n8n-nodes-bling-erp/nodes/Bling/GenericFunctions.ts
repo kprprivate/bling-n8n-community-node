@@ -22,6 +22,14 @@ export async function blingApiRequest(
 	const options: IRequestOptions = {
 		method,
 		uri: `${BASE_URL}${endpoint}`,
+		// Bling API v3 is migrating from opaque tokens to JWT. The `enable-jwt: 1`
+		// header makes Bling issue/process JWT auth and is harmless with opaque
+		// tokens. Note: n8n's generic oAuth2Api flow drops custom headers on the
+		// token POST, so tokens obtained via the Connect button / auto-refresh stay
+		// opaque (still valid until Bling's block date); only API requests carry it.
+		headers: {
+			'enable-jwt': '1',
+		},
 		qs,
 		body,
 		json: true,

@@ -175,6 +175,14 @@ npm link n8n-nodes-bling-erp
 
 O n8n gerencia automaticamente a renovação dos tokens OAuth2. Não é necessária nenhuma ação manual — quando o access token expira, o refresh token é usado automaticamente para obter um novo.
 
+### Autenticação JWT / JWT Authentication
+
+A API v3 do Bling está migrando de tokens opacos para **JWT**. Este node já envia o header `enable-jwt: 1` em **todas as requisições à API**, ficando compatível com JWT (tokens JWT são apenas Bearer tokens maiores — 1.500 a 3.000 caracteres — e o n8n os armazena/envia normalmente). O header é inofensivo com tokens opacos.
+
+**Limitação conhecida:** a credencial usa o fluxo OAuth2 genérico do n8n (`oAuth2Api`), que **não permite adicionar headers customizados na requisição de token** (`POST /oauth/token`). Por isso, os tokens obtidos via botão "Connect my account" e via renovação automática permanecem **opacos**. Tokens opacos continuam funcionando até a data de bloqueio definida pelo Bling (ainda "em definição"). Caso o Bling bloqueie tokens opacos, será necessário um fluxo OAuth2 autogerenciado (planejado como evolução futura).
+
+The Bling v3 API is migrating from opaque tokens to **JWT**. This node already sends the `enable-jwt: 1` header on **all API requests**, making it JWT-ready (JWTs are just larger Bearer tokens — 1,500 to 3,000 chars — stored/sent unchanged by n8n). The header is harmless with opaque tokens. **Known limitation:** n8n's generic OAuth2 flow cannot add custom headers to the token request, so tokens from the Connect button / auto-refresh stay opaque (still valid until Bling's undefined block date); a self-managed OAuth2 flow is the future path if opaque tokens are blocked.
+
 ### Troubleshooting de Autenticação / Auth Troubleshooting
 
 | Problema | Solução |
@@ -1408,6 +1416,10 @@ n8n-nodes-bling-erp/
 ---
 
 ## Changelog
+
+### v0.1.6
+
+- Compatibilidade com JWT: envia o header `enable-jwt: 1` em todas as requisições à API v3 do Bling (preparação para a migração de tokens opacos → JWT). Inofensivo com tokens opacos. Veja [Autenticação JWT](#autenticação-jwt--jwt-authentication).
 
 ### v0.1.0
 
